@@ -1,0 +1,88 @@
+GOTO start<<1>>
+LABEL Read
+LINE -1
+FUNCTION Read -1 -1
+READ
+RETURN
+LABEL Write
+LINE -1
+FUNCTION Write -1 -1
+FORMAL dummyFormal 0
+LOAD 0 dummyFormal
+WRITE
+RETURN
+LABEL start<<1>>
+LINE 1
+FUNCTION main 1 18
+LIT 0 x
+GOTO continue<<3>>
+LABEL fib<<2>>
+LINE 2
+FUNCTION fib 2 11
+FORMAL n 0
+LINE 3
+LOAD 0 n
+LIT 1
+BOP <=
+FALSEBRANCH else<<4>>
+LINE 4
+LIT 1
+RETURN fib<<2>>
+POP 0
+GOTO continue<<5>>
+LABEL else<<4>>
+LINE 6
+LOAD 0 n
+LIT 2
+BOP ==
+FALSEBRANCH else<<6>>
+LINE 7
+LIT 1
+RETURN fib<<2>>
+POP 0
+GOTO continue<<7>>
+LABEL else<<6>>
+LINE 9
+LOAD 0 n
+LIT 2
+BOP -
+ARGS 1
+CALL fib<<2>>
+LOAD 0 n
+LIT 1
+BOP -
+ARGS 1
+CALL fib<<2>>
+BOP +
+RETURN fib<<2>>
+POP 0
+LABEL continue<<7>>
+POP 0
+LABEL continue<<5>>
+POP 0
+LIT 0    GRATIS-RETURN-VALUE
+RETURN fib<<2>>
+LABEL continue<<3>>
+LINE 12
+LIT 0 k
+LIT 5
+STORE 0 x
+LINE 13
+ARGS 0
+CALL Read
+ARGS 1
+CALL fib<<2>>
+ARGS 1
+CALL Write
+STORE 1 k
+LINE 14
+LIT 0 x
+LINE 15
+LIT 7
+STORE 2 x
+LINE 16
+LIT 8
+STORE 2 x
+POP 1
+POP 2
+HALT
